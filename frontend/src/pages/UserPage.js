@@ -1,8 +1,9 @@
 import React from 'react';
 import axios from 'axios'; // don't forget this
 import Notes from '../components/Notes';
+import { Redirect } from 'react-router-dom';
 
-const UserPage = () => {
+const UserPage = ({appUser, setAppUser}) => {
   // pass in default value into useState
   const [note, setNote] = React.useState(''); // create a state variable + setter
   const [notes, setNotes] = React.useState(['Demo note']); // if map of undefined 
@@ -33,6 +34,10 @@ const UserPage = () => {
     // this will load notes when the page loads
     fetchNotes();
   }, []); // pass empty array
+
+  if(!appUser){
+    return <Redirect to="/login" />;
+  }
 
   // jsx
   return (

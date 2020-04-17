@@ -7,24 +7,27 @@ import Signup from './pages/Signup';
 import UserPage from './pages/UserPage';
 
 const App = () => {
+  const [appUser, setAppUser] = React.useState(null);
+
   return (
     <div>
       <nav>
         <Link to="/"> Home </Link>
-        <Link to="/logout">Log Out</Link>
-        <Link to="/login"> Login</Link>
-        <Link to="/signup"> Sign Up</Link>
-        <Link to="/userpage">User Page</Link>
+        {appUser && <Link to="/logout">Log Out</Link>}
+        {!appUser && <Link to="/login"> Login</Link>}
+        {!appUser && <Link to="/signup"> Sign Up</Link>}
+        {appUser && <Link to="/userpage">User Page</Link>}
       </nav>
+      {appUser && <h2>Welcome {appUser}</h2>}
       <Switch>
         <Route path="/login">
-          <Login />
+          <Login appUser={appUser} setAppUser={setAppUser} />
         </Route>
         <Route path="/signup">
-          <Signup />
+          <Signup appUser={appUser} setAppUser={setAppUser} />
         </Route>
         <Route path="/userpage">
-          <UserPage />
+          <UserPage appUser={appUser} setAppUser={setAppUser} />
         </Route>
         <Route path="/">
           <Home />
